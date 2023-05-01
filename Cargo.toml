@@ -1,0 +1,38 @@
+[package]
+name = "macgyver-rs"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.12.0" , features = [ "rt-multi-thread", "macros" ]}
+futures = "0.3.23"
+clippy = "0.0.302"
+rustfmt = "0.10.0"
+kube = { version = "0.75.0", features = ["runtime", "derive",  "client"] }
+k8s-openapi = { version = "0.16.0", features = ["v1_25", "api"] }
+colored = "2.0.0"
+rand = "0.8.5"
+uuid = { version = "1.1.2", features = [ "v4", "serde"] }
+chrono = "0.4.23"
+reqwest = { version = "0.11.11", features = ["json"] }
+serde = { version = "1.0.143", features = ["derive"] }
+serde_json = "1.0.83"
+serde_yaml = "0.9"
+
+clap = { version = "4.1.6", features = ["derive"] }
+base64 = "0.21.0"
+gitlab = "0.1509.0"
+bytes = "1.4.0"
+
+
+
+[[bin]]
+name = "macgyver"
+path = "src/bin/macgyver/macgyver.rs"
+
+[profile.release]
+opt-level = 'z' # Optimize for size
+codegen-units = 1
+lto = true
