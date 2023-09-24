@@ -1,13 +1,22 @@
 use std::env;
 use kube::config::Kubeconfig;
 use errors::MacgyverCmdErrors;
+pub mod cli_args;
+pub mod errors;
 
 pub mod pods;
-pub mod cli_args;
+
+#[cfg(feature = "configmap")]
 pub mod configmap;
+
+
+#[cfg(feature = "cpumem")]
 pub mod cpumem;
+
+#[cfg(feature = "secret")]
 pub mod secret;
-pub mod errors;
+
+#[cfg(feature = "logs")]
 pub mod logs;
 
 

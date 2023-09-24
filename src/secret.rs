@@ -1,5 +1,5 @@
 use colored::Colorize;
-use k8s_openapi::{api::core::v1::Secret};
+use k8s_openapi::api::core::v1::Secret;
 use kube::{Client, Api, api::ListParams};
 use base64::{engine, Engine as _};
 use std::{str, fmt::Display};

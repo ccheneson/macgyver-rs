@@ -10,6 +10,7 @@ use colored::{Colorize, ColoredString};
 use crate::{Result, get_k8s_env};
 
 
+
 struct PodInfo<'a> {
     image: &'a str
 }
@@ -149,3 +150,6 @@ fn collect_info(p: Pod) -> Option<PrintArguments> {
     return None;
 
 }
+
+
+ 
