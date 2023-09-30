@@ -1,52 +1,47 @@
 use clap::Parser;
-use macgyver_rs::cli_args::{CliArgs, NamespaceWithPods, NamespaceArgs, NamespaceWithEncodedSecretArgs};
+use macgyver_rs::cli_args::CliArgs;
 use macgyver_rs::Result;
 
-use macgyver_rs::pods;
 use macgyver_rs::cli_args::Entities::Pods;
+use macgyver_rs::pods;
 
-#[cfg(feature = "cpumem")]
-use macgyver_rs::cpumem;
 #[cfg(feature = "cpumem")]
 use macgyver_rs::cli_args::Entities::CpuMem;
+#[cfg(feature = "cpumem")]
+use macgyver_rs::cpumem;
 
-#[cfg(feature = "configmap")]
-use macgyver_rs::configmap;
 #[cfg(feature = "configmap")]
 use macgyver_rs::cli_args::Entities::Configmap;
+#[cfg(feature = "configmap")]
+use macgyver_rs::configmap;
 
-
-#[cfg(feature = "secret")]
-use macgyver_rs::secret;
 #[cfg(feature = "secret")]
 use macgyver_rs::cli_args::Entities::Secret;
+#[cfg(feature = "secret")]
+use macgyver_rs::secret;
 
-
-#[cfg(feature = "logs")]
-use macgyver_rs::logs;
 #[cfg(feature = "logs")]
 use macgyver_rs::cli_args::Entities::Logs;
+#[cfg(feature = "logs")]
+use macgyver_rs::logs;
 
 fn main() -> Result<()> {
-
     let args = CliArgs::parse();
 
-
     match args.entity {
-        Pods(NamespaceWithPods { namespace, with_pod })  => 
-            pods::process(namespace.as_str(), with_pod )? ,
+        Pods(args) => pods::process(args)?,
+
         #[cfg(feature = "configmap")]
-        Configmap(NamespaceArgs { namespace})=> 
-            configmap::process(namespace.as_str())?,
+        Configmap(args) => configmap::process(args)?,
+
         #[cfg(feature = "cpumem")]
-        CpuMem(NamespaceArgs { namespace})=> 
-            cpumem::process(namespace.as_str())?,
+        CpuMem(args) => cpumem::process(args)?,
+
         #[cfg(feature = "secret")]
-        Secret(NamespaceWithEncodedSecretArgs { namespace, with_encoded})=> 
-            secret::process(namespace.as_str(), with_encoded)?,        
+        Secret(args) => secret::process(args)?,
+
         #[cfg(feature = "logs")]
-        Logs(Services { services , pattern})=>
-            logs::process(&services, pattern)?
+        Logs(args) => logs::process(args)?,
     };
     Ok(())
 }

@@ -6,15 +6,15 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tokio = { version = "1.12.0" , features = [ "rt-multi-thread", "macros" ]}
+tokio = { version = "1.12.0", features = ["rt-multi-thread", "macros"] }
 futures = "0.3.23"
 clippy = "0.0.302"
 rustfmt = "0.10.0"
-kube = { version = "0.75.0", features = ["runtime", "derive",  "client"] }
+kube = { version = "0.75.0", features = ["runtime", "derive", "client"] }
 k8s-openapi = { version = "0.16.0", features = ["v1_25", "api"] }
 colored = "2.0.0"
 rand = "0.8.5"
-uuid = { version = "1.1.2", features = [ "v4", "serde"] }
+uuid = { version = "1.1.2", features = ["v4", "serde"] }
 chrono = "0.4.23"
 reqwest = { version = "0.11.11", features = ["json"] }
 serde = { version = "1.0.143", features = ["derive"] }
@@ -32,7 +32,7 @@ configmap = []
 cpumem = []
 secret = []
 logs = []
-default = []
+default = ["pods", "configmap", "cpumem", "secret", "logs"]
 
 
 [[bin]]
@@ -40,6 +40,6 @@ name = "macgyver"
 path = "src/bin/macgyver/macgyver.rs"
 
 [profile.release]
-opt-level = 'z' # Optimize for size
+opt-level = 'z'   # Optimize for size
 codegen-units = 1
 lto = true
